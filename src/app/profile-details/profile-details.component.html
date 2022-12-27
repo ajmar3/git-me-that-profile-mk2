@@ -1,1 +1,75 @@
-<p>profile-details works! HELllllllllllloooooooooooooooo</p>
+<div *ngIf="dataLoading" class="w-screen h-screen flex justify-center items-center">
+  <div class="animate-spin w-20 h-20 rounded-full border-4 border-primary flex justify-center items-center">
+    <fa-icon [icon]="hourGlassIcon" size="3x" class="text-primary"></fa-icon>
+  </div>
+</div>
+
+
+<div *ngIf="!dataLoading" class="w-screen h-screen">
+  <div class="bg-primary bg-opacity-50 w-full py-10 flex flex-col justify-center items-center gap-3">
+    <div class="max-w-sm flex justify-center">
+      <div class="avatar w-36 h-36 md:w-48 md:h-48 lg:w-60 lg:h-60">
+        <img class="rounded-full p-1 border-4 border-secondary" [src]="userInfo.avatar_url" />
+      </div>
+    </div>
+    <div class="text-4xl font-bold text-secondary-focus" *ngIf="userInfo.name">{{ userInfo.name }}</div>
+    <div class="text-2xl text-neutral-focus">
+      <a [href]="'https://github.com/'+userInfo.login">
+        @{{ userInfo.login }}
+      </a>
+    </div>
+    <div class="text-center text-neutral" *ngIf="userInfo.bio">{{ userInfo.bio }}</div>
+    <div class="stats shadow-lg mt-5">
+      <div class="stat">
+        <div class="stat-title">Followers</div>
+        <div class="stat-value text-accent">{{ userInfo.followers }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Following</div>
+        <div class="stat-value text-accent">{{ userInfo.following }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Repositories</div>
+        <div class="stat-value text-accent">{{ userInfo.public_repos }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full p-10 grid grid-cols-3 gap-5">
+    <div class="w-full" *ngFor="let repo of repoInfo">
+      <a [href]="repo.html_url">
+        <div class="w-full h-44 border-2 border-accent rounded-md shadow-md p-3 relative">
+          <div class="text-lg">
+            <fa-icon [icon]="bookIcon" class="pr-1"></fa-icon>
+            {{repo.name}}
+          </div>
+          <div *ngIf="repo.description" class="text-gray-600 mt-3">
+            {{repo.description}}
+          </div>
+          <div *ngIf="!repo.description" class="text-gray-600 mt-3 italic">
+            No description
+          </div>
+          <div class="absolute bottom-2 w-full flex gap-5">
+            <div class="flex gap-1 text-lg">
+              <fa-icon [icon]="starIcon" class="text-primary"></fa-icon>
+              {{ repo.stargazers_count }}
+            </div>
+            <div class="flex gap-1 text-lg">
+              <fa-icon [icon]="codeForkIcon" class="text-primary"></fa-icon>
+              {{ repo.forks }}
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+
+</div>
+
+<div class="fixed bottom-5 right-5">
+  <div class="w-fit h-fit rounded-full bg-white">
+    <a href="https://github.com/ajmar3/git-me-that-profile-mk2">
+      <fa-icon [icon]="githubIcon" size="3x" class="text-primary"></fa-icon>
+    </a>
+  </div>
+</div>
