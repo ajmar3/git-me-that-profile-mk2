@@ -21,13 +21,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProfileSearchComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: ProfileSearchComponent },
-      { path: 'results/:profileName', component: ProfileDetailsComponent },
-    ]),
+    { path: '', component: ProfileSearchComponent },
+    { path: 'results/:profileName', component: ProfileDetailsComponent },
+], {
+    initialNavigation: 'enabledBlocking'
+}),
     FontAwesomeModule,
     HttpClientModule
   ],
